@@ -1,0 +1,18 @@
+
+["No Soliciting"]
+	#Enable No Soliciting module
+	noSolicitingEnabled = true
+	#Range in chunks for no soliciting banner.
+	#Range: > 1
+	noSolicitingChunkRangeBanner = 6
+	#Range in chunks for players holding a restraining order.
+	#Range: > 1
+	noSolicitingChunkRangePlayer = 6
+	#Range in chunks for players holding a restraining order.
+	#Range: > 1
+	noSolicitingChunkRangeCarpet = 6
+
+["Hoe planting"]
+	#Enable Hoe planting module
+	hoePlantingEnabled = true
+
