@@ -128,7 +128,7 @@ maxPowerInputPerBlock = 10000
 	ticksPerOperation = 5
 	#The amount of RCL to transfer in one operation
 	#Range: 100 ~ 10000
-	rclPerOperation = 1
+	rclPerOperation = 100
 
 [explosion]
 	#This factor increases the radius of radiation on explosion and decreases the strength
