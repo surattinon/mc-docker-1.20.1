@@ -1,7 +1,6 @@
 name: Pipeline for testing
 
-on:
-  push:
+on: [push]
 
 jobs:
   TestMC:
@@ -10,4 +9,4 @@ jobs:
 
     steps:
       - name: Start server
-        run: ls && ./data/start.sh
+        run: cd data && ./start.sh
