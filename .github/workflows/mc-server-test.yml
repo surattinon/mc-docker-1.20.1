@@ -1,8 +1,12 @@
-name: Minecraft Server Mods 1.20.1
-on: [push]
+name: Pipeline for testing
+
+on:
+  push:
+
 jobs:
-  Begin-Server-Test:
-    runs-on: ubuntu-latest
-    steps:
-      -name: Begin Minecraft Server mods test
-      -run: chmod +x start-service && ./start-service
+  TestMC:
+    name: MC Server running test
+      runs-on: ubuntu-latest
+        steps:
+          - name: Start server
+            run: ./data/start.sh

@@ -1,4 +1,6 @@
 version: "3.8"
+networks:
+  mc-docker:
 
 services:
   mc:
@@ -7,18 +9,67 @@ services:
     stdin_open: true
     ports:
       - "25566:25565"
+    restart: unless-stopped
     environment:
+      TZ: "Asia/Bangkok"
       EULA: "TRUE"
-      TYPE: AUTO_CURSEFORGE
-      CF_API_KEY: $2a$10$3xFhQ7RkO19f6q3cUrJKpu41PW7mVsq5v0qbskRLvPImL4qTj/uvS
-      CF_URL_PAGE: https://www.curseforge.com/minecraft/modpacks/all-the-mods-9/files/5289491
-      CF_SLUG: all-the-mods-9
-      MEMORY: 4G
+      TYPE: FORGE
+      VERSION: 1.20.1
+      MODPACK: "https://nextcloud.ofbas.com/s/mfXPH7CejJ367xq/download?path=%2F&files=mods.zip"
+      REMOVE_OLD_MODS: TRUE
+      # CUSTOM_JAR_EXEC: "-jar arclight-forge-1.20.1-1.0.5.jar"
+      # CF_API_KEY: $2a$10$3xFhQ7RkO19f6q3cUrJKpu41PW7mVsq5v0qbskRLvPImL4qTj/uvS
+      # CF_URL_PAGE: https://www.curseforge.com/minecraft/modpacks/all-the-mods-9/files/5289491
+      # CF_SLUG: all-the-mods-9
+      # GENERIC_PACKS: mods
+      # GENERIC_PACKS_PREFIX: https://nextcloud.ofbas.com/s/NytjPiX5SBj9iDK/download/
+      # GENERIC_PACKS_SUFFIX: .zip
+      MEMORY: 5G
       DIFFICULITY: "normal"
-      MAX_PLAYER: 10
-      ENABLE_COMMAND_BLOCK: "true"
+      MAX_PLAYER: 20
+      ENABLE_COMMAND_BLOCK: TRUE
       MODE: "survival"
-      ONLINE_MODE: "false"
-      STOP_SERVER_ANNOUNCE_DELAY: 15
+      ONLINE_MODE: TRUE
+      ALLOW_FLIGHT: TRUE
+      ENABLE_RCON: TRUE
     volumes:
       - ../mc-data:/data
+    networks: 
+      - mc-docker
+  restarter:
+    image: docker:cli
+    restart: unless-stopped
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    entrypoint: ["/bin/sh","-c"]
+    environment:
+      TZ: "Asia/Bangkok"
+    command:
+      - |
+        while true; do
+          if [ "$$(date +'%H:%M')" = '00:00' ]; then
+            docker exec mc rcon-cli say "Server will restart in 15 second"
+            docker exec mc rcon-cli say "Saving world..."
+            docker exec mc rcon-cli save-all
+            sleep 15
+            docker restart mc
+          elif [ "$$(date +'%H:%M')" = '06:00' ]; then
+            docker exec mc rcon-cli say "Server will restart in 15 second"
+            docker exec mc rcon-cli say "Saving world..."
+            docker exec mc rcon-cli save-all
+            sleep 15
+            docker restart mc
+          elif [ "$$(date +'%H:%M')" = '12:00' ]; then
+            docker exec mc rcon-cli say "Server will restart in 15 second"
+            docker exec mc rcon-cli say "Saving world..."
+            docker exec mc rcon-cli save-all
+            sleep 15
+            docker restart mc
+          elif [ "$$(date +'%H:%M')" = '13:38' ]; then
+            docker exec mc rcon-cli say "Server will restart in 15 second"
+            docker exec mc rcon-cli say "Saving world..."
+            docker exec mc rcon-cli save-all
+            sleep 15
+            docker restart mc
+          fi
+          sleep 60
+        done
