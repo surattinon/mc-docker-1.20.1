@@ -18,6 +18,6 @@ jobs:
 
       # Check Health
       - name: Get container health
-        run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" minecraftserver
+        run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" services-mc-1
       - name: Display container logs
-        run: /usr/bin/docker logs minecraftserver
+        run: /usr/bin/docker logs services-mc-1
