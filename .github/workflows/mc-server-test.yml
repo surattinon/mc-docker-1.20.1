@@ -3,14 +3,21 @@ name: Pipeline for testing
 on: [push]
 
 jobs:
-  TestMC:
-    name: MC Server running test
+  TestModsMC:
+    name: MC Server mods test
     runs-on: ubuntu-latest
+    timeout-minute: 3
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Start server
       - name: Start server
         run: ./start.sh && sleep 5
-      - name: Attach docker
-        run: ./attach.sh
+
+      # Check Health
+      - name: Get container health
+        run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" minecraftserver
+      - name: Display container logs
+        run: /usr/bin/docker logs minecraftserver
