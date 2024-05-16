@@ -13,7 +13,9 @@ jobs:
 
       # Start server
       - name: Begin Build of BasuMC Docker Container 
-        run: docker-compose -f services/mc-server.yaml up & sleep 4m ; kill $!
+        run: docker-compose -f services/mc-server.yaml up
+        with:
+          time: '1m'
 
       # Check Health
       - name: Get container health
