@@ -13,9 +13,7 @@ jobs:
 
       # Start server
       - name: Begin Build of BasuMC Docker Container 
-        run: docker-compose -f services/mc-server.yaml up
-        with:
-          time: '60s'
+        run: docker-compose -f services/mc-server.yaml up --wait --wait-timeout 60
 
       # Check Health
       - name: Get container health
