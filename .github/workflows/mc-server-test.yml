@@ -6,7 +6,8 @@ on:
 jobs:
   TestMC:
     name: MC Server running test
-      runs-on: ubuntu-latest
-        steps:
-          - name: Start server
-            run: ./data/start.sh
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start server
+        run: ./data/start.sh
