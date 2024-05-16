@@ -15,7 +15,7 @@ jobs:
       - name: Start server
         run: ./start.sh
       - name: Starting server...
-        run: Start-Sleep -m 3
+        run: sleep 3m
 
       # Check Health
       - name: Get container health
