@@ -10,4 +10,4 @@ jobs:
 
     steps:
       - name: Start server
-        run: ./data/start.sh
+        run: ls && ./data/start.sh
