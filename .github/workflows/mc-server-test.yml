@@ -6,7 +6,7 @@ jobs:
   TestModsMC:
     name: MC Server mods test
     runs-on: ubuntu-latest
-    timeout-minute: 3
+    timeout-minutes: 3
 
     steps:
       - name: Checkout
