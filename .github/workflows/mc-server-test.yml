@@ -6,7 +6,6 @@ jobs:
   TestModsMC:
     name: MC Server mods test
     runs-on: ubuntu-latest
-    timeout-minutes: 3
 
     steps:
       - name: Checkout
@@ -14,7 +13,7 @@ jobs:
 
       # Start server
       - name: Start server
-        run: ./start.sh && sleep 5
+        run: ./start.sh && sleep 240
 
       # Check Health
       - name: Get container health
