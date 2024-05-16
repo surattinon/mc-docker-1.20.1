@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Start server
-        run: cd data && ./start.sh
+        run: cd /data && ./start.sh
