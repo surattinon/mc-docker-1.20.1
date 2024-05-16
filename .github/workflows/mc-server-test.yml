@@ -9,4 +9,7 @@ jobs:
 
     steps:
       - name: Start server
-        run: cd /data && ./start.sh
+        run: ./start.sh
+
+      - name: Attach docker
+        run: ./attach.sh
