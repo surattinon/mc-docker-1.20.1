@@ -1,6 +1,6 @@
 name: Pipeline for testing
 
-# on: [push]
+on: [workflow_dispatch]
 
 jobs:
   TestModsMC:
