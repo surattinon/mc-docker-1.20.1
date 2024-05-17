@@ -3,6 +3,7 @@
 - Clone this project
 ```bash
 git clone https://github.com/surattinon/mc-docker-1.20.1
+cd mc-docker-1.20.1
 ```
 ### Command to operate Server
 - Start
