@@ -21,10 +21,10 @@ jobs:
 
       # Start server
       - name: Begin Build of BasuMC Docker Container
+        continue-on-error: true
+        timeout-minutes: 4
         run: docker compose -f services/mc-server.yaml up
 
       # Check Health
       - name: Get container health
         run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" services-mc-1
-      - name: Display container logs
-        run: /usr/bin/docker logs services-mc-1
