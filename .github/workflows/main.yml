@@ -11,6 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Wait for other checks to succeed
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           wait-interval: 60
