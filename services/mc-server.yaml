@@ -10,6 +10,11 @@ services:
     ports:
       - "25566:25565"
     restart: unless-stopped
+    healthcheck:
+      test: mc-health
+      start_period: 1m
+      interval: 5s
+      retries: 10
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
