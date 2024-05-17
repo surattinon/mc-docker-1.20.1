@@ -25,6 +25,9 @@ jobs:
         timeout-minutes: 4
         run: docker compose -f services/mc-server.yaml up
 
+      # Sleep 5 Sec
+      - run: sleep 5
+
       # Check Health
       - name: Get container health
         run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" services-mc-1
