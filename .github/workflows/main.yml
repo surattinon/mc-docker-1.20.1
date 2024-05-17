@@ -14,7 +14,9 @@ jobs:
       - name: Wait for other checks to succeed
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
+          ref: ${{ github.ref }}
           wait-interval: 60
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           running-workflow-name: 'MC Server mods test'
 
       # Start server
