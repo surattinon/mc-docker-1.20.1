@@ -11,11 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          wait-interval: 60
+          running-workflow-name: 'MC Server mods test'
+
       # Start server
-      - name: Begin Build of BasuMC Docker Container 
+      - name: Begin Build of BasuMC Docker Container
         run: docker compose -f services/mc-server.yaml up
-        wait-interval: 3000
-        allowed-conclusions: success
 
       # Check Health
       - name: Get container health
