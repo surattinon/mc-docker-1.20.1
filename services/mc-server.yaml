@@ -9,12 +9,7 @@ services:
     stdin_open: true
     ports:
       - "25566:25565"
-    restart: unless-stopped
-    healthcheck:
-      test: mc-health
-      start_period: 1m
-      interval: 5s
-      retries: 10
+    restart: always
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
@@ -43,7 +38,7 @@ services:
       - mc-docker
   restarter:
     image: docker:cli
-    restart: unless-stopped
+    restart: always
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
     entrypoint: ["/bin/sh","-c"]
     environment:
