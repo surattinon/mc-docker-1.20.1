@@ -1,5 +1,5 @@
 # Minecraft Server 1.20.1 (Docker)
-### Instalation
+### Installation
 - Clone this project
 ```bash
 git clone https://github.com/surattinon/mc-docker-1.20.1
