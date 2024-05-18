@@ -11,14 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: skip-workflow
-        id: skip-workflow # id used for referencing step
-        uses: saulmaldonado/skip-workflow@v1
-        with:
-          phrase: '[skip-workflow]'
-          search: '["commit_messages"]'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       # Start server
       - name: Begin Build of BasuMC Docker Container
         run: docker compose -f services/mc-server.yaml up --wait # Start container and wait healthcheck
