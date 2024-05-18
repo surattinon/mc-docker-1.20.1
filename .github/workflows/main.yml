@@ -34,8 +34,11 @@ jobs:
             current_time=$(date +%s) # Get current time
             elapsed_time=$((current_time - start_time)) # Calc time
             if (( elapsed_time >= $wait_sec && output == 0 )); then
-                exit 0
-                break
+              exit 0
+              break
+            elif (( output == 1 )); then
+              exit 1
+              break
             fi
             sleep 1
           done
