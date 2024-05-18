@@ -24,7 +24,7 @@ jobs:
         run: docker compose -f services/mc-server.yaml up --wait # Start container and wait healthcheck
         id: startserver
 
-      # Get Error log
-      - name: Get server Error log
-        if: steps.startserver.outcome == failure
+      # Get Server log
+      - name: Get Server Log
+        if: always()
         run: docker logs services-mc-1
