@@ -26,10 +26,10 @@ jobs:
           # Start timer
           start_time=$(date +%s)
           # Start check exit code when time reached
+          # Convert min to sec
+          min=4 # Set time here
+          wait_sec=$(min*60)
           while true; do
-            # Convert min to sec
-            min=4 # Set time here
-            wait_sec=$(min*60)
             exitCode=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
             health=$(docker inspect -f "{{.State.Health.Status}}" services-mc-1)
             current_time=$(date +%s) # Get current time
