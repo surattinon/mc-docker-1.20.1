@@ -17,7 +17,7 @@ jobs:
         # timeout-minutes: 4
         run: |
           # Start container
-          docker compose -f services/mc-server.yaml up -d && docker run -it services-mc-1 &
+          docker compose -f services/mc-server.yaml up -d -it &
 
           # Wait for the container to be up
           while ! docker inspect services-mc-1 &>/dev/null; do
