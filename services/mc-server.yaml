@@ -42,43 +42,42 @@ services:
       - ../mc-data:/data
     networks: 
       - mc-docker
-  restarter:
-    image: docker:cli
-    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
-    entrypoint: ["/bin/sh","-c"]
-    DISABLE_HEALTHCHECK: true
-    environment:
-      TZ: "Asia/Bangkok"
-    # restart: unless-stopped
-    command:
-      - |
-        while true; do
-          if [ "$$(date +'%H:%M')" = '00:00' ]; then
-            docker exec mc rcon-cli say "Server will restart in 15 second"
-            docker exec mc rcon-cli say "Saving world..."
-            docker exec mc rcon-cli save-all
-            sleep 15
-            docker restart mc
-          elif [ "$$(date +'%H:%M')" = '06:00' ]; then
-            docker exec mc rcon-cli say "Server will restart in 15 second"
-            docker exec mc rcon-cli say "Saving world..."
-            docker exec mc rcon-cli save-all
-            sleep 15
-            docker restart mc
-          elif [ "$$(date +'%H:%M')" = '12:00' ]; then
-            docker exec mc rcon-cli say "Server will restart in 15 second"
-            docker exec mc rcon-cli say "Saving world..."
-            docker exec mc rcon-cli save-all
-            sleep 15
-            docker restart mc
-          elif [ "$$(date +'%H:%M')" = '18:00' ]; then
-            docker exec mc rcon-cli say "Server will restart in 15 second"
-            docker exec mc rcon-cli say "Saving world..."
-            docker exec mc rcon-cli save-all
-            sleep 15
-            docker restart mc
-          fi
-          sleep 60
-        done
-    networks: 
-      - mc-docker
+  # restarter:
+  #   image: docker:cli
+  #   volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+  #   entrypoint: ["/bin/sh","-c"]
+  #   environment:
+  #     TZ: "Asia/Bangkok"
+  #   # restart: unless-stopped
+  #   command:
+  #     - |
+  #       while true; do
+  #         if [ "$$(date +'%H:%M')" = '00:00' ]; then
+  #           docker exec mc rcon-cli say "Server will restart in 15 second"
+  #           docker exec mc rcon-cli say "Saving world..."
+  #           docker exec mc rcon-cli save-all
+  #           sleep 15
+  #           docker restart mc
+  #         elif [ "$$(date +'%H:%M')" = '06:00' ]; then
+  #           docker exec mc rcon-cli say "Server will restart in 15 second"
+  #           docker exec mc rcon-cli say "Saving world..."
+  #           docker exec mc rcon-cli save-all
+  #           sleep 15
+  #           docker restart mc
+  #         elif [ "$$(date +'%H:%M')" = '12:00' ]; then
+  #           docker exec mc rcon-cli say "Server will restart in 15 second"
+  #           docker exec mc rcon-cli say "Saving world..."
+  #           docker exec mc rcon-cli save-all
+  #           sleep 15
+  #           docker restart mc
+  #         elif [ "$$(date +'%H:%M')" = '18:00' ]; then
+  #           docker exec mc rcon-cli say "Server will restart in 15 second"
+  #           docker exec mc rcon-cli say "Saving world..."
+  #           docker exec mc rcon-cli save-all
+  #           sleep 15
+  #           docker restart mc
+  #         fi
+  #         sleep 60
+  #       done
+  #   networks: 
+  #     - mc-docker
