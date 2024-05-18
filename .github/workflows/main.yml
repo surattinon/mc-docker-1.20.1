@@ -15,7 +15,7 @@ jobs:
       - name: Begin Build of BasuMC Docker Container
         continue-on-error: true
         timeout-minutes: 4
-        run: docker compose -f services/mc-server.yaml up --exit-code-from services-mc-1
+        run: docker compose -f services/mc-server.yaml up --exit-code-from mc
 
       # Sleep 3 Sec
       - run: sleep 3
