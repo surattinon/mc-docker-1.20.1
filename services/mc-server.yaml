@@ -13,8 +13,8 @@ services:
     healthcheck:
       test: mc-health
       start_period: 3m
-      interval: 20s
-      retries: 20
+      interval: 30s
+      retries: 30
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
