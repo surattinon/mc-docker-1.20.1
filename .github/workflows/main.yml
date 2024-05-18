@@ -11,23 +11,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Wait for other checks to succeed
-        uses: lewagon/wait-on-check-action@v1.3.4
-        with:
-          ref: ${{ github.ref }}
-          wait-interval: 60
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          running-workflow-name: 'MC Server mods test'
-
       # Start server
       - name: Begin Build of BasuMC Docker Container
         continue-on-error: true
         timeout-minutes: 4
         run: docker compose -f services/mc-server.yaml up
 
-      # Sleep 5 Sec
-      - run: sleep 5
+      # Sleep 3 Sec
+      - run: sleep 3
 
       # Check Health
       - name: Get container health
-        run: /usr/bin/docker container inspect -f "{{.State.Health.Status}}" services-mc-1
+        run: docker container inspect -f "{{.State.Health.Status}}" services-mc-1
