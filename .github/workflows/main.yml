@@ -26,5 +26,5 @@ jobs:
 
       # Get Error log
       - name: Get server Error log
-        if: steps.startserver.outcome == "Error"
+        if: steps.startserver.outcome == failure
         run: docker logs services-mc-1
