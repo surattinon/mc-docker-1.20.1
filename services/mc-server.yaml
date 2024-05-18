@@ -9,6 +9,7 @@ services:
     stdin_open: true
     ports:
       - "25566:25565"
+    restart: unless-stopped
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
@@ -42,6 +43,7 @@ services:
     entrypoint: ["/bin/sh","-c"]
     environment:
       TZ: "Asia/Bangkok"
+    restart: unless-stopped
     command:
       - |
         while true; do
@@ -63,7 +65,7 @@ services:
             docker exec mc rcon-cli save-all
             sleep 15
             docker restart mc
-          elif [ "$$(date +'%H:%M')" = '13:38' ]; then
+          elif [ "$$(date +'%H:%M')" = '18:00' ]; then
             docker exec mc rcon-cli say "Server will restart in 15 second"
             docker exec mc rcon-cli say "Saving world..."
             docker exec mc rcon-cli save-all
@@ -72,3 +74,5 @@ services:
           fi
           sleep 60
         done
+    networks: 
+      - mc-docker
