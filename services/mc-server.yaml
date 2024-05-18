@@ -9,11 +9,11 @@ services:
     stdin_open: true
     ports:
       - "25566:25565"
-    restart: always
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
       TYPE: FORGE
+      FORGE_VERSION: latest
       VERSION: 1.20.1
       MODPACK: "https://nextcloud.ofbas.com/s/mfXPH7CejJ367xq/download?path=%2F&files=mods.zip"
       REMOVE_OLD_MODS: "true"
@@ -38,7 +38,6 @@ services:
       - mc-docker
   restarter:
     image: docker:cli
-    restart: always
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
     entrypoint: ["/bin/sh","-c"]
     environment:
