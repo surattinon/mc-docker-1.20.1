@@ -36,7 +36,7 @@ jobs:
             if (( elapsed_time >= $wait_sec && output == 0 )); then
               exit 0
               break
-            elif ! docker ps -a --format '{{.Names}}' | grep -q 'services-mc-1'; then
+            elif ! docker inspect services-mc-1 &>/dev/null; then
               exit 1
               break
             fi
