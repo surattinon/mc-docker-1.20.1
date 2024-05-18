@@ -15,6 +15,7 @@ jobs:
         id: skip-workflow # id used for referencing step
         uses: saulmaldonado/skip-workflow@v1
         with:
+          phrase: '[skip-workflow]'
           search: '["commit_messages"]'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
