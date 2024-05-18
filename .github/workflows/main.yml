@@ -36,7 +36,7 @@ jobs:
             elapsed_time=$((current_time - start_time)) # Calc time
             if (( elapsed_time >= wait_sec && exitCode == 0 )); then
               exit 0
-            else (( exitCode == 1 && "$health" == "unhealthy" )); then
+            elif (( exitCode == 1 && "$health" == "unhealthy" )); then
               break
             fi
             sleep 1
