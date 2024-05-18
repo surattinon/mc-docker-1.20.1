@@ -10,6 +10,11 @@ services:
     ports:
       - "25566:25565"
     # restart: unless-stopped
+    healthcheck:
+      interval: 20s
+      timeout: 1m
+      retries: 3
+      start_period: 2m
     environment:
       TZ: "Asia/Bangkok"
       EULA: "TRUE"
