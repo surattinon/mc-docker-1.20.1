@@ -46,6 +46,7 @@ services:
     image: docker:cli
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
     entrypoint: ["/bin/sh","-c"]
+    DISABLE_HEALTHCHECK: true
     environment:
       TZ: "Asia/Bangkok"
     # restart: unless-stopped
