@@ -28,7 +28,7 @@ jobs:
           # Start check exit code when time reached
           # Convert min to sec
           min=4 # Set time here
-          wait_sec=$(min*60)
+          wait_sec=$((min*60))
           while true; do
             exitCode=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
             health=$(docker inspect -f "{{.State.Health.Status}}" services-mc-1)
@@ -36,12 +36,12 @@ jobs:
             elapsed_time=$((current_time - start_time)) # Calc time
             if (( elapsed_time >= wait_sec && exitCode == 0 )); then
               exit 0
-              break
             else (( exitCode == 1 && "$health" == "unhealthy" )); then
               break
             fi
             sleep 1
           done
+          exit 1
 
           # while true
           # do
