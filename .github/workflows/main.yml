@@ -18,6 +18,7 @@ jobs:
         run: |
           # Start container
           docker compose -f services/mc-server.yaml up --exit-code-from mc &
+
           # Wait for the container to be up
           while ! docker inspect services-mc-1 &>/dev/null; do
             sleep 1
@@ -34,6 +35,7 @@ jobs:
             elapsed_time=$((current_time - start_time)) # Calc time
             if (( elapsed_time >= $wait_sec && output == 0 )); then
                 exit 0
+                break
             fi
             sleep 1
           done
