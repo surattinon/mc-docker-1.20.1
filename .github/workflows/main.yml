@@ -1,4 +1,4 @@
-name: Basu MC Server TESTER
+name: Basu MC Server Tester
 
 on: [workflow_dispatch, push]
 
@@ -11,55 +11,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: skip-workflow
+        id: skip-workflow # id used for referencing step
+        uses: saulmaldonado/skip-workflow@v1
+        with:
+          phrase: '[skip-workflow]'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       # Start server
       - name: Begin Build of BasuMC Docker Container
-        # continue-on-error: true
-        # timeout-minutes: 4
-        run: |
-          # Start container
-          docker compose -f services/mc-server.yaml up --wait
+        run: docker compose -f services/mc-server.yaml up --wait # Start container and wait healthcheck
 
-          # # Wait for the container to be up
-          # while ! docker inspect services-mc-1 &>/dev/null; do
-          #   sleep 1
-          # done
-          # # Start timer
-          # start_time=$(date +%s)
-          # # Start check exit code when time reached
-          # # Convert min to sec
-          # min=4 # Set time here
-          # wait_sec=$((min*60))
-          # while true; do
-          #   exitCode=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
-          #   health=$(docker inspect -f "{{.State.Health.Status}}" services-mc-1)
-          #   current_time=$(date +%s) # Get current time
-          #   elapsed_time=$((current_time - start_time)) # Calc time
-          #   if (( elapsed_time >= wait_sec && exitCode == 0 && "$health" == "healthy" )); then
-          #     exit 0
-          #   elif (( exitCode == 1 && "$health" == "unhealthy" )); then
-          #     break
-          #   fi
-          #   sleep 1
-          # done
-          # exit 1
-
-          # while true
-          # do
-          #   output=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
-          #   if [[ "$output" == 1 ]]; then
-          #     exit 1
-          #   fi
-          # done
-
-          # Check Health
-      # - name: Get container health
-      #   run: |
-      #     output=$(docker inspect -f "{{.State.Health.Status}}" services-mc-1)
-      #     if [[ "$output" == "healthy" ]]; then
-      #       echo "Exit code = 0" >> $GITHUB_OUTPUT
-      #       exit 0
-      #     else
-      #       echo "Exit code = 1" >> $GITHUB_OUTPUT
-      #       exit 1
-      #     fi
-
+      # Get log
+      - name: Get server log
+        run: docker logs services-mc-1
