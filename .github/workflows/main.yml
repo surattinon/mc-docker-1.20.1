@@ -16,17 +16,35 @@ jobs:
         # continue-on-error: true
         # timeout-minutes: 4
         run: |
-          docker compose -f services/mc-server.yaml up &
-          sleep 2m &&
-          while true
-          do
-            output=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
-            if [[ "$output" == 0 ]]; then
-              exit 0
-            else
-              exit 1
-            fi
+          # Start container
+          docker compose -f services/mc-server.yaml up --exit-code-from mc &
+          # Wait for the container to be up
+          while ! docker inspect services-mc-1 &>/dev/null; do
+            sleep 1
           done
+          # Start timer
+          start_time=$(date +%s)
+          # Start check exit code when time reached
+          while true; do
+            # Convert min to sec
+            min=4 # Set time here
+            wait_sec=$min*60
+            output=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
+            current_time=$(date +%s) # Get current time
+            elapsed_time=$((current_time - start_time)) # Calc time
+            if (( elapsed_time >= $wait_sec && output == 0 )); then
+                exit 0
+            fi
+            sleep 1
+          done
+
+          # while true
+          # do
+          #   output=$(docker inspect -f "{{.State.ExitCode}}" services-mc-1)
+          #   if [[ "$output" == 1 ]]; then
+          #     exit 1
+          #   fi
+          # done
 
       # Check Health
       # - name: Get container health
