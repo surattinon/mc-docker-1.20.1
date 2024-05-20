@@ -23,14 +23,8 @@ services:
       VERSION: 1.20.1
       MODPACK: "https://nextcloud.ofbas.com/s/mfXPH7CejJ367xq/download?path=%2F&files=mods.zip"
       REMOVE_OLD_MODS: "true"
-      # CUSTOM_JAR_EXEC: "-jar arclight-forge-1.20.1-1.0.5.jar"
       # CF_API_KEY: $2a$10$3xFhQ7RkO19f6q3cUrJKpu41PW7mVsq5v0qbskRLvPImL4qTj/uvS
-      # CF_URL_PAGE: https://www.curseforge.com/minecraft/modpacks/all-the-mods-9/files/5289491
-      # CF_SLUG: all-the-mods-9
-      # GENERIC_PACKS: mods
-      # GENERIC_PACKS_PREFIX: https://nextcloud.ofbas.com/s/NytjPiX5SBj9iDK/download/
-      # GENERIC_PACKS_SUFFIX: .zip
-      MEMORY: 5G
+      MEMORY: 6G
       DIFFICULITY: "normal"
       MAX_PLAYER: 20
       ENABLE_COMMAND_BLOCK: "ture"
@@ -40,5 +34,41 @@ services:
       ENABLE_RCON: "true"
     volumes:
       - ../mc-data:/data
+    networks: 
+      - mc-docker
+     # "init" container for mc to restore the data volume when empty
+  restore-backup:
+    # Same image as mc, but any base image with bash and tar will work
+    image: itzg/mc-backup
+    restart: "no"
+    entrypoint: restore-tar-backup
+    environment:
+      TZ: "Asia/Bangkok"
+    volumes:
+      # Must be same mount as mc service, needs to be writable
+      - ../mc-data:/data
+      # Must be same mount as backups service, but can be read-only
+      - ../mc-backups:/backups:ro
+    networks: 
+      - mc-docker
+  backups:
+    image: itzg/mc-backup
+    depends_on:
+      mc:
+        condition: service_healthy
+    environment:
+      TZ: "Asia/Bangkok"
+      BACKUP_INTERVAL: "1h30m"
+      RCON_HOST: mc
+      # since this service waits for mc to be healthy, no initial delay is needed
+      INITIAL_DELAY: 0
+      PRE_BACKUP_SCRIPT: |
+        echo "Before backup!"
+        echo "Also before backup from $$RCON_HOST to $$DEST_DIR"
+      POST_BACKUP_SCRIPT_FILE: /post-backup.sh
+    volumes:
+      - ../mc-data:/data:ro
+      - ../mc-backups:/backups
+      - ./post-backup.sh:/post-backup.sh:ro
     networks: 
       - mc-docker
