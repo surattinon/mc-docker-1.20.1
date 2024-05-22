@@ -40,7 +40,7 @@ services:
     image: itzg/mc-backup
     environment:
       TZ: "Asia/Bangkok"
-      BACKUP_INTERVAL: "2h"
+      BACKUP_INTERVAL: "3h"
       PRUNE_BACKUPS_DAYS: 1
       RCON_HOST: mc
       # since this service waits for mc to be healthy, no initial delay is needed
