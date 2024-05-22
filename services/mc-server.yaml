@@ -4,7 +4,7 @@ networks:
 
 services:
   mc:
-    image: itzg/minecraft-server:java21
+    image: itzg/minecraft-server:java21-graalvm
     tty: true
     stdin_open: true
     ports:
