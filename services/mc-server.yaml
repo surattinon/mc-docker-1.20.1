@@ -36,32 +36,15 @@ services:
       - ../mc-data:/data
     networks: 
       - mc-docker
-     # "init" container for mc to restore the data volume when empty
-  restore-backup:
-    # Same image as mc, but any base image with bash and tar will work
-    image: itzg/mc-backup
-    restart: "no"
-    entrypoint: restore-tar-backup
-    environment:
-      TZ: "Asia/Bangkok"
-    volumes:
-      # Must be same mount as mc service, needs to be writable
-      - ../mc-data:/data
-      # Must be same mount as backups service, but can be read-only
-      - ../mc-backups:/backups:ro
-    networks: 
-      - mc-docker
   backups:
     image: itzg/mc-backup
-    depends_on:
-      mc:
-        condition: service_healthy
     environment:
       TZ: "Asia/Bangkok"
-      BACKUP_INTERVAL: "1h30m"
+      BACKUP_INTERVAL: "2h"
+      PRUNE_BACKUPS_DAYS: 1
       RCON_HOST: mc
       # since this service waits for mc to be healthy, no initial delay is needed
-      INITIAL_DELAY: 0
+      INITIAL_DELAY: "5m"
       PRE_BACKUP_SCRIPT: |
         echo "Before backup!"
         echo "Also before backup from $$RCON_HOST to $$DEST_DIR"
