@@ -38,6 +38,7 @@ services:
       - mc-docker
   backups:
     image: itzg/mc-backup
+    restart: unless-stopped
     environment:
       TZ: "Asia/Bangkok"
       BACKUP_INTERVAL: "3h"
