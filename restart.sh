@@ -9,6 +9,8 @@ docker exec services-mc-1 rcon-cli say "======================="
 docker exec services-mc-1 rcon-cli say "Begin Backup server..."
 docker exec services-mc-1 rcon-cli say "======================="
 docker compose -f ./services/mc-server.yaml exec backups backup now
+docker exec services-mc-1 rcon-cli say "Backup complete ✅✅✅✅"
+sleep 2
 docker exec services-mc-1 rcon-cli say "Server will restart in 15 second"
 sleep 5
 docker exec services-mc-1 rcon-cli say "Server will restart in 10 second"
